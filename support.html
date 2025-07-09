@@ -8,10 +8,179 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
     <title>Support - Mr. & Miss Embakasi</title>
-    <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+<style>
+/* Base Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #ffffff;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Primary Color */
+:root {
+    --primary-pink: #f40bc1;
+    --light-pink: #ee28c6;
+    --text-dark: #333;
+    --text-muted: #555;
+}
+
+/* Top Navigation Bar */
+.top-bar {
+    background-color: var(--primary-pink);
+    padding: 0.8rem 1.5rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 50;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.top-bar h1 {
+    color: #fff;
+    font-size: 1.25rem;
+}
+
+.top-bar a {
+    color: #fff;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.top-bar a:hover {
+    color: #ffe6f3;
+}
+
+/* Hero Section */
+.hero-section h1 {
+    color: var(--primary-pink);
+    font-weight: 700;
+}
+
+.hero-section p {
+    color: var(--text-muted);
+}
+
+/* Timeline */
+.timeline {
+    border-left: 4px solid var(--primary-pink);
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.timeline-dot {
+    left: -10px;
+    top: 0.25rem;
+}
+
+/* News Ticker */
+.news-ticker {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: var(--light-pink);
+    color: white;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    z-index: 40;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.ticker-content {
+    display: flex;
+    gap: 2rem;
+    animation: scrollTicker 25s linear infinite;
+}
+
+@keyframes scrollTicker {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+/* FAQ Section */
+.faq-question {
+    cursor: pointer;
+    padding: 0.5rem 0;
+}
+
+.faq-answer {
+    transition: max-height 0.3s ease;
+}
+
+/* Modal (Optional if already styled in index.html) */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 60;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal.active {
+    display: block;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+    }
+
+    .top-bar nav {
+        display: none;
+    }
+
+    main {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+
+    .hero-section p {
+        font-size: 1rem;
+    }
+
+    .timeline-content h3 {
+        font-size: 1.1rem;
+    }
+
+    .faq-question span {
+        font-size: 0.95rem;
+    }
+}
+
+/* Utility Classes */
+.rounded-lg {
+    border-radius: 0.75rem;
+}
+
+.shadow-lg {
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+</style>
 <body class="relative">
     <!-- Top Navigation Bar -->
     <header class="top-bar flex items-center justify-between">
@@ -31,9 +200,6 @@
 
         <!-- Register Button and Time -->
         <div class="flex items-center space-x-3">
-            <button id="registerBtn" class="bg-white text-pink-600 px-3 py-1 rounded-full text-sm font-medium hover:bg-gray-100 transition whitespace-nowrap">
-                <i class="fas fa-user-plus mr-1"></i>Register
-            </button>
             <div class="text-white text-sm hidden sm:flex items-center">
                 <i class="fas fa-clock mr-1"></i>
                 <span id="currentTime"></span>

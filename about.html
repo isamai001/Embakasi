@@ -3,16 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
     <title>About - Mr. & Miss Embakasi</title>
-    <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
+<style>
+    /* Base Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #ffffff;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Top Navigation Bar */
+.top-bar {
+    background-color: #f304a7; /* Pink */
+    padding: 0.8rem 1.5rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 50;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.top-bar h1 {
+    color: #fff;
+    font-size: 1.25rem;
+}
+
+.top-bar a {
+    color: #fff;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.top-bar a:hover {
+    color: #fcddec; /* light pink */
+}
+
+/* Hero Section */
+.hero-section h1 {
+    color: #e91eb0;
+    font-weight: 700;
+}
+
+.hero-section p {
+    color: #555;
+}
+
+/* Timeline */
+.timeline {
+    border-left: 4px solid #e91eb3;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.timeline-dot {
+    left: -10px;
+    top: 0.25rem;
+}
+
+/* News Ticker */
+.news-ticker {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #f107ba;
+    color: white;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    z-index: 40;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.ticker-content {
+    display: flex;
+    gap: 2rem;
+    animation: scrollTicker 25s linear infinite;
+}
+
+@keyframes scrollTicker {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+/* FAQ Section */
+.faq-question {
+    cursor: pointer;
+    padding: 0.5rem 0;
+}
+
+.faq-answer {
+    transition: max-height 0.3s ease;
+}
+
+/* Modal (Optional if already styled in index.html) */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 60;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal.active {
+    display: block;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+    }
+
+    .top-bar nav {
+        display: none;
+    }
+
+    main {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+
+    .hero-section p {
+        font-size: 1rem;
+    }
+
+    .timeline-content h3 {
+        font-size: 1.1rem;
+    }
+
+    .faq-question span {
+        font-size: 0.95rem;
+    }
+}
+
+/* Utility Classes */
+.rounded-lg {
+    border-radius: 0.75rem;
+}
+
+.shadow-lg {
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+</style>
 <body class="relative">
     <!-- Top Navigation Bar -->
     <header class="top-bar flex items-center justify-between">
@@ -32,9 +193,6 @@
 
         <!-- Register Button and Time -->
         <div class="flex items-center space-x-3">
-            <button id="registerBtn" class="bg-white text-pink-600 px-3 py-1 rounded-full text-sm font-medium hover:bg-gray-100 transition whitespace-nowrap">
-                <i class="fas fa-user-plus mr-1"></i>Register
-            </button>
             <div class="text-white text-sm hidden sm:flex items-center">
                 <i class="fas fa-clock mr-1"></i>
                 <span id="currentTime"></span>
@@ -59,28 +217,31 @@
             <section class="mb-16" data-aos="fade-right">
                 <div class="flex flex-col md:flex-row items-center gap-8">
                     <div class="md:w-1/2">
-                        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87" alt="Mission" class="rounded-lg shadow-lg w-full h-auto">
+                        <img src="https://plus.unsplash.com/premium_photo-1692138270836-893cffcedecf?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHBpbmslMjBiYWNrZ3JvdW5kJTIwaW1hZ2V8ZW58MHx8MHx8fDA%3D" alt="Mission" class="rounded-lg shadow-lg w-full h-auto">
                     </div>
                     <div class="md:w-1/2">
                         <h2 class="text-3xl font-bold text-pink-600 mb-4">Our Mission</h2>
-                        <p class="text-gray-700 mb-4">Mr. & Miss Embakasi is dedicated to showcasing the vibrant talent and beauty within the Embakasi community. Our mission is to:</p>
+                        <p class="text-gray-700 mb-4">Mr. & Miss Embakasi is committed to discovering, nurturing, and celebrating the unique talents and modeling potential within the Embakasi community. Our mission is to:</p>
                         <ul class="space-y-2 mb-6">
                             <li class="flex items-start">
                                 <i class="fas fa-check-circle text-pink-500 mt-1 mr-2"></i>
-                                <span>Empower young men and women to showcase their talents and leadership qualities</span>
+                                <span>Empower aspiring models and performers to build confidence and stage presence</span>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check-circle text-pink-500 mt-1 mr-2"></i>
-                                <span>Promote community development through charitable initiatives</span>
+                                <span>Offer a platform to showcase talent in modeling, fashion, dance, and the arts</span>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check-circle text-pink-500 mt-1 mr-2"></i>
-                                <span>Celebrate the diversity and culture of Embakasi</span>
+                                <span>Celebrate the beauty, creativity, and culture of the Embakasi youth</span>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check-circle text-pink-500 mt-1 mr-2"></i>
-                                <span>Provide a platform for personal and professional growth</span>
+                                <span>Support personal branding and career development in the fashion and entertainment industries</span>
                             </li>
+                        </ul>
+                    </div>
+                    
                         </ul>
                     </div>
                 </div>
@@ -107,15 +268,15 @@
                     <div class="timeline-item mb-8" data-aos="fade-up" data-aos-delay="200">
                         <div class="timeline-dot absolute w-4 h-4 rounded-full bg-pink-500 border-4 border-white"></div>
                         <div class="timeline-content ml-8 pl-4">
-                            <h3 class="text-xl font-semibold text-gray-800">2022 - Charity Focus</h3>
-                            <p class="text-gray-600">Introduced charity initiatives, with winners leading community projects that impacted over 5,000 residents.</p>
+                            <h3 class="text-xl font-semibold text-gray-800">2022 - Event Collaborations</h3>
+                            <p class="text-gray-600">Formed strategic partnerships with local organizations to host impactful events, giving contestants more exposure and engaging the wider Embakasi community.</p>                            
                         </div>
                     </div>
                     <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
                         <div class="timeline-dot absolute w-4 h-4 rounded-full bg-pink-500 border-4 border-white"></div>
                         <div class="timeline-content ml-8 pl-4">
                             <h3 class="text-xl font-semibold text-gray-800">2025 - Bigger Than Ever</h3>
-                            <p class="text-gray-600">Now with over 200 contestants annually and a grand finale attended by thousands at Embakasi Stadium.</p>
+                            <p class="text-gray-600">Mark your calendars! The much-anticipated grand finale of Mr. & Miss Embakasi 2025 will take place this December at the iconic East African School of Aviation Grounds.</p>
                         </div>
                     </div>
                 </div>
@@ -131,7 +292,7 @@
                             <i class="fas fa-chevron-down text-pink-500"></i>
                         </button>
                         <div class="faq-answer mt-2 text-gray-600 hidden">
-                            The competition is open to all residents of Embakasi aged 18-30. Contestants must provide proof of residence and a valid ID. Both men and women can participate in their respective categories.
+                            The competition is open to all residents of Embakasi aged 18-30. Contestants must provide the required information and concent to the submission of personal details as stated required by the privacy policy. Both men and women can participate in their respective categories.
                         </div>
                     </div>
                     <div class="faq-item border-b border-gray-200 pb-4">
